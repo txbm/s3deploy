@@ -1,0 +1,3 @@
+bucket_name: some-bucket-on-aws
+aws_key: XXXXXXXX
+aws_secret: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx

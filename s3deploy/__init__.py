@@ -17,7 +17,7 @@ from os.path import (
 
 from s3deploy.s3 import init as init_s3
 from s3deploy.core import (
-    sync_static_files,
+    sync_static_site,
     overwrite_static_site
 )
 
@@ -67,11 +67,10 @@ def main(*args, **kwargs):
     if cli_args['config']:
         config = _read_config(cli_args['config'])
     else:
-        default_path = join(
-            dirname(
-                dirname(
-                    abspath(__file__))), 'config.default.yaml')
-        config = _read_config(default_path)
+        cwd = getcwd()
+        default_path = join(cwd, 's3deploy.config.yaml')
+        if exists(default_path):
+            config = _read_config(default_path)
 
     if not config:
         raise RuntimeError(
@@ -80,10 +79,10 @@ def main(*args, **kwargs):
     init_s3(config['aws_key'], config['aws_secret'])
 
     if cli_args['target_directory']:
-        t_dir = cli_args['target_directory']
+        t_dir = _scrub_path(cli_args['target_directory'])
         b_name = config['bucket_name']
 
         if cli_args['overwrite']:
             overwrite_static_site(t_dir, b_name)
         else:
-            sync_static_files(t_dir, b_name)
+            sync_static_site(t_dir, b_name)

@@ -4,8 +4,6 @@
 from os import walk
 
 from os.path import (
-    abspath,
-    dirname,
     join
 )
 
@@ -19,8 +17,9 @@ def parse_target_dir(path):
     file_dict = {}
     for root, dirs, files in walk(path):
         for f in files:
-            p = join(root, dirname(abspath(f)))
-            file_dict[p] = join(dirname(f), f)
+            p = join(root, f)
+            k = p.replace(path, '')[1:]
+            file_dict[p] = k
     return file_dict
 
 
