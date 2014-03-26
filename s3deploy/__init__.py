@@ -46,7 +46,7 @@ def _scrub_path(path):
     if isabs(path):
         path = realpath(path)
     else:
-        cwd = dirname(abspath(getcwd()))
+        cwd = abspath(getcwd())
         path = realpath(join(cwd, path))
     return path
 

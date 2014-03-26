@@ -8,7 +8,7 @@ from setuptools import (
 
 setup(
     name="s3deploy",
-    version="0.0.1",
+    version="0.0.2",
     description='The quickest way to deploy a static site to S3',
     long_description=open('README.md').read(),
     keywords='',
